@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JICS - Job Interview Coaching System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <!-- Navigation Bar -->
+    <nav class="bg-transparent absolute top-0 right-0 p-4">
+        <div class="flex space-x-4">
+            <a href="/register" class="bg-white text-blue-600 px-4 py-2 rounded-lg font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:bg-gray-200">Sign Up</a>
+            <a href="/login" class="bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:bg-blue-700">Sign In</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="bg-gradient-to-r from-blue-500 to-purple-600 text-white py-20 text-center">
+        <h1 class="text-4xl font-bold transition duration-500 ease-in-out transform hover:scale-105">
+            JICS - Your AI-Powered Interview Coach
+        </h1>
+        <p class="text-lg mt-4 opacity-90 transition duration-300 ease-in-out hover:opacity-100">
+            Ace your job interviews with personalized coaching, real-time feedback, and role-specific training.
+        </p>
+        <button onclick="window.location.href='/login';" class="mt-6 bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:bg-gray-200">
+            Get Started
+        </button>
+    </header>
+
+    <!-- Features Section -->
+    <section class="py-20 px-10">
+        <h2 class="text-3xl font-bold text-center mb-10 transition duration-500 ease-in-out transform hover:scale-105">
+            Why Choose JICS?
+        </h2>
+        <div class="grid md:grid-cols-3 gap-8 text-center">
+            <!-- Mock Interview -->
+            <a href="/">
+                <div class="bg-white p-6 shadow-lg rounded-lg transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-2xl">
+                    <h3 class="text-xl font-bold">Mock Interview</h3>
+                    <p class="text-gray-600 mt-2">Practice realistic interviews with AI-driven feedback.</p>
+                </div>
+            </a>
+
+            <!-- Resume Builder -->
+            <a href="/">
+                <div class="bg-white p-6 shadow-lg rounded-lg transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-2xl">
+                    <h3 class="text-xl font-bold">Resume Builder</h3>
+                    <p class="text-gray-600 mt-2">Create a professional resume with AI suggestions.</p>
+                </div>
+            </a>
+
+            <!-- Presentation Guidance -->
+            <a href="/">
+                <div class="bg-white p-6 shadow-lg rounded-lg transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-2xl">
+                    <h3 class="text-xl font-bold">Presentation Guidance</h3>
+                    <p class="text-gray-600 mt-2">Enhance your presentation skills with expert feedback.</p>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="bg-gradient-to-r from-purple-600 to-blue-500 text-white py-20 px-10 text-center">
+        <h2 class="text-3xl font-bold mb-10 transition duration-500 ease-in-out transform hover:scale-105">What Users Say</h2>
+        <div class="max-w-3xl mx-auto">
+            <blockquote class="italic text-gray-200 transition duration-300 ease-in-out hover:text-gray-100">
+                “JICS helped me secure my dream job! The AI feedback was invaluable.”
+            </blockquote>
+            <p class="mt-4 font-bold transition duration-300 ease-in-out transform hover:scale-105">- Sarah M.</p>
+        </div>
+    </section>
+
+    <!-- Contact Form -->
+    <section class="py-20 px-10 text-center">
+        <h2 class="text-3xl font-bold mb-10 transition duration-300 ease-in-out transform hover:scale-105">Get in Touch</h2>
+        <form class="max-w-lg mx-auto bg-white p-6 shadow-lg rounded-lg transition duration-300 ease-in-out transform hover:scale-105">
+            <input type="text" placeholder="Your Name" class="w-full p-3 mb-4 border border-gray-300 rounded-lg transition duration-300 ease-in-out focus:ring-2 focus:ring-blue-500">
+            <input type="email" placeholder="Your Email" class="w-full p-3 mb-4 border border-gray-300 rounded-lg transition duration-300 ease-in-out focus:ring-2 focus:ring-blue-500">
+            <textarea placeholder="Your Message" class="w-full p-3 mb-4 border border-gray-300 rounded-lg transition duration-300 ease-in-out focus:ring-2 focus:ring-blue-500"></textarea>
+            <button class="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-3 rounded-lg font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:opacity-90">
+                Send Message
+            </button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-blue-600 to-purple-600 text-white text-center py-6">
+        <p class="transition duration-300 ease-in-out transform hover:opacity-90">© 2025 JICS. All rights reserved.</p>
+    </footer>
+</body>
+</html>

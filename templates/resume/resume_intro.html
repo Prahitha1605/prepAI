@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResumeXpert</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #a8e063, #56ab2f, #9b59b6, #8e44ad);
+            background-size: 300% 300%;
+            font-family: Arial, sans-serif;
+            color: white;
+            text-align: center;
+            animation: gradientShift 10s ease infinite;
+            overflow: hidden;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1.5s ease-out forwards;
+        }
+
+        h1 {
+            font-size: 3em;
+            font-weight: bidi-override;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            h1 {
+    background: linear-gradient(to right, #43cea2, #185a9d);
+    -webkit-background-clip: text; /* For WebKit browsers (Chrome, Safari, Edge) */
+    background-clip: text; /* Standard property for compatibility */
+    -webkit-text-fill-color: transparent; /* Required for WebKit to make text transparent */
+    color: transparent; /* Fallback for unsupported browsers */
+}
+
+        }
+
+        h2 {
+            font-size: 2.2em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #f3e5f5;
+        }
+
+        p {
+            font-size: 1.5em;
+            margin: 10px 0;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            color: white;
+            background: linear-gradient(to right, #32be8f, #38d39f, #32be8f);
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .btn:hover {
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+            transform: scale(1.1);
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Start building a Resume for your next Job</h1>
+        <p>Build. Refine. Shine. With AI-Driven Resumes</p>
+        <button class="btn" id="getStartedBtn">Get Started</button>
+
+        <script>
+            document.getElementById("getStartedBtn").addEventListener("click", function () {
+                window.location.href = "{{ url_for('create_resume') }}";
+            });
+        </script>
+        
+
+
+    </div>
+</body>
+</html>

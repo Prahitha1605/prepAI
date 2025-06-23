@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='resume/styles.css') }}">
+</head>
+<body>
+    <button id="homeButton">Home</button>
+    <div class="resume-builder">
+        <h1>Build Your Resume</h1>
+        <div class="section-card">
+            <h3>Personal Information</h3>
+            <input type="text" placeholder="Full Name" id="name">
+            <input type="email" placeholder="Email" id="email">
+            <input type="text" placeholder="Phone Number" id="phone">
+            <input type="text" placeholder="Address" id="address">
+        </div>
+        <div class="section-card">
+            <h3>Education</h3>
+            <div id="education-section">
+                <input type="text" class="education-input" placeholder="Degree, University, Year">
+            </div>
+            <button onclick="addField('education-section', 'education-input')">+ Add More</button>
+        </div>
+        <div class="section-card">
+            <h3>Experience</h3>
+            <div id="experience-section">
+                <input type="text" class="experience-input" placeholder="Job Title, Company, Years">
+            </div>
+            <button onclick="addField('experience-section', 'experience-input')">+ Add More</button>
+        </div>
+        <div class="section-card">
+            <h3>Skills</h3>
+            <div id="skills-section">
+                <input type="text" class="skills-input" placeholder="Skill (e.g., Python, Machine Learning)">
+            </div>
+            <button onclick="addField('skills-section', 'skills-input')">+ Add More</button>
+        </div>
+        <div class="section-card">
+            <h3>Certifications</h3>
+            <div id="certifications-section">
+                <input type="text" class="certifications-input" placeholder="Certification Name, Issued By, Year">
+            </div>
+            <button onclick="addField('certifications-section', 'certifications-input')">+ Add More</button>
+        </div>
+        <button id="aiGenerate">Enhance Resume</button>
+        <button id="changeLayout">Change Layout</button>
+        <button id="downloadResume" style="display: none;">Download Resume</button>
+        <div id="resume-output"></div>
+    </div>
+    <div id="chatbot-icon" title="Chat with us!"></div>
+    <div id="chatbot-window">
+        <div id="chatbot-header">Chatbot</div>
+        <div id="chatbot-messages"></div>
+        <div id="chatbot-input">
+            <input type="text" id="user-input" placeholder="Type your message...">
+            <button id="send-btn">Send</button>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='resume/script.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+</body>
+</html>

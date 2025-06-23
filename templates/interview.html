@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mock Interview</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}" />
+</head>
+<body>
+    <div class="container">
+        <h2>🎙️ Mock Interview</h2>
+        <div id="instructions">
+            <p>✅ Follow the instructions:</p>
+            <ul>
+                <li>Read each question carefully.</li>
+                <li>Click <strong>Start Recording</strong> to record your response.</li>
+                <li>Click <strong>Stop Recording</strong> before proceeding to the next question.</li>
+                <li>Click <strong>Next Question</strong> to move to the next question.</li>
+                <li>Click <strong>End Interview</strong> to submit responses for feedback.</li>
+            </ul>
+        </div>
+        <div id="progress-container">
+            <progress id="progressBar" value="0" max="100"></progress>
+            <p id="progressText">0 of 5 questions completed</p>
+        </div>
+        <div id="questions-container">
+            <p id="question-text" style="display: block; visibility: visible;">Loading questions...</p>
+        </div>
+        <p id="timer" style="color: #ff4500; font-weight: bold;"></p>
+        <div id="webcam-container">
+            <video id="video" autoplay></video>
+            <div id="controls">
+                <button id="startRecording" onclick="startRecording()">🎥 Start Recording</button>
+                <button id="stopRecording" onclick="stopRecording()" disabled>⏹️ Stop Recording</button>
+            </div>
+        </div>
+        <div id="navigation">
+            <button id="nextQuestion" onclick="nextQuestion()">➡️ Next Question</button>
+            <button id="submitBtn" onclick="submitForFeedback()" style="display:none;">✅ End Interview</button>
+        </div>
+        <div id="error-message" style="display: none; color: red;">
+            <p>⚠️ Unable to access your webcam. Please check your camera permissions.</p>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/recorder.js') }}"></script>
+    <script>
+        async function submitForFeedback() {
+            console.log("submitForFeedback called from inline script");
+            let recordedFilePaths = JSON.parse(localStorage.getItem("uploadedVideoPaths") || "[]");
+            console.log("All recordedFilePaths:", recordedFilePaths);
+
+            // Take only the last 5 paths
+            recordedFilePaths = recordedFilePaths.slice(-5);
+            console.log("Selected last 5 file paths:", recordedFilePaths);
+
+            if (recordedFilePaths.length === 0) {
+                console.log("No file paths found in recordedFilePaths");
+                alert("No responses recorded to analyze! Please record at least one response.");
+                return;
+            }
+
+            const startTime = performance.now();
+            try {
+                console.log("Sending request to /analyze_responses with file paths:", recordedFilePaths);
+                let response = await fetch("/analyze_responses", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ file_paths: recordedFilePaths }),
+                });
+
+                if (!response.ok) {
+                    console.warn("First attempt failed, retrying /analyze_responses");
+                    response = await fetch("/analyze_responses", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ file_paths: recordedFilePaths }),
+                    });
+                }
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error("Analysis failed with status:", response.status, "Error:", errorText);
+                    throw new Error(`Analysis failed with status ${response.status}: ${errorText}`);
+                }
+
+                const data = await response.json();
+                const endTime = performance.now();
+                console.log(`Analysis took ${(endTime - startTime) / 1000} seconds`);
+                console.log("Analysis response:", data);
+
+                if (data.status === "error") {
+                    console.error("Server returned error:", data.message);
+                    throw new Error(data.message);
+                }
+
+                if (!data.results || !Array.isArray(data.results) || data.results.length === 0) {
+                    console.error("Invalid or empty results:", data.results);
+                    throw new Error("No valid feedback results received from server");
+                }
+
+                // Check for any valid (non-error) results
+                const validResults = data.results.filter(r => r.score > 0 || r.feedback !== "Unable to analyze due to transcription error");
+                if (validResults.length === 0) {
+                    console.error("No valid results found:", data.results);
+                    throw new Error("All responses failed to transcribe or analyze");
+                }
+
+                console.log("Storing feedback in localStorage:", data.results);
+                localStorage.setItem("feedback", JSON.stringify(data.results));
+                alert("✅ Interview responses analyzed successfully!");
+                window.location.href = "/feedback";
+            } catch (error) {
+                console.error("Error during analysis:", error);
+                alert(`❌ Failed to analyze responses: ${error.message}`);
+            }
+        }
+    </script>
+</body>
+</html>

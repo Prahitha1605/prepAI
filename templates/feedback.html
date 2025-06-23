@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Feedback & Results</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}" />
+</head>
+<body>
+    <div class="container">
+        <h2>Your Interview Feedback</h2>
+        <div id="feedback-container">
+            <p id="loading-text">Loading feedback... <span class="spinner"></span></p>
+        </div>
+        <a href="/dashboard">Go Back</a>
+    </div>
+    <script>
+        window.onload = function () {
+            console.log("feedback.html window.onload");
+            const container = document.getElementById("feedback-container");
+            const loadingText = document.getElementById("loading-text");
+
+            const timeout = setTimeout(() => {
+                if (loadingText) {
+                    loadingText.innerText = "Error: Feedback loading timed out. Check console for details.";
+                    console.error("Feedback loading timed out after 10 seconds");
+                }
+            }, 10000);
+
+            let feedback = [];
+            try {
+                const feedbackData = localStorage.getItem("feedback");
+                console.log("Raw feedback from localStorage:", feedbackData);
+                feedback = JSON.parse(feedbackData || "[]");
+                console.log("Parsed feedback:", feedback);
+            } catch (error) {
+                console.error("Error parsing feedback:", error);
+                clearTimeout(timeout);
+                container.innerHTML = "<p>Error: Failed to load feedback. Please try again.</p>";
+                return;
+            }
+
+            clearTimeout(timeout);
+            if (!feedback || !Array.isArray(feedback) || feedback.length === 0) {
+                container.innerHTML = "<p>No feedback available. Please complete the interview.</p>";
+                console.log("No feedback available or invalid format");
+                return;
+            }
+
+            const validFeedback = feedback.filter(item => item.response_text && !item.response_text.startsWith("[File not found") && !item.response_text.startsWith("[Transcription Error"));
+            if (validFeedback.length === 0) {
+                container.innerHTML = "<p>No valid responses analyzed. Please record new responses.</p>";
+                console.log("All feedback entries are errors:", feedback);
+                return;
+            }
+
+            container.innerHTML = "";
+            feedback.slice(0, 5).forEach((item, index) => {
+                console.log(`Displaying feedback for response ${item.question_number}:`, item);
+                const questionNumber = item.question_number || (index + 1);
+                const responseText = item.response_text || "No answer provided";
+                const score = item.score !== undefined ? item.score : 0;
+                let feedbackContent = "";
+
+                const feedbackParts = item.feedback.split("\n").filter(line => line.trim());
+                const clarity = feedbackParts.find(line => line.startsWith("Clarity:")) || "";
+                const confidence = feedbackParts.find(line => line.startsWith("Confidence:")) || "";
+                const relevance = feedbackParts.find(line => line.startsWith("Relevance:")) || "";
+                const suggestions = feedbackParts.find(line => line.startsWith("Suggestions:")) || "";
+
+                if (clarity || confidence || relevance || suggestions) {
+                    feedbackContent = `
+                        <ul>
+                            ${clarity ? `<li><strong>Clarity:</strong> ${clarity.replace("Clarity: ", "")}</li>` : "<li><strong>Clarity:</strong> Not provided</li>"}
+                            ${confidence ? `<li><strong>Confidence:</strong> ${confidence.replace("Confidence: ", "")}</li>` : "<li><strong>Confidence:</strong> Not provided</li>"}
+                            ${relevance ? `<li><strong>Relevance:</strong> ${relevance.replace("Relevance: ", "")}</li>` : "<li><strong>Relevance:</strong> Not provided</li>"}
+                            ${suggestions ? `<li><strong>Suggestions:</strong> ${suggestions.replace("Suggestions: ", "")}</li>` : "<li><strong>Suggestions:</strong> None</li>"}
+                        </ul>
+                    `;
+                } else {
+                    console.warn(`No structured feedback for response ${questionNumber}, using raw:`, item.feedback);
+                    feedbackContent = `<p><strong>Feedback:</strong> ${item.feedback || "No feedback provided"}</p>`;
+                }
+
+                container.innerHTML += `
+                    <div class="feedback-item">
+                        <h3>Response ${questionNumber}</h3>
+                        <p><strong>Answer:</strong> ${responseText}</p>
+                        <p><strong>Score:</strong> ${score}/100</p>
+                        <div class="feedback-details">
+                            ${feedbackContent}
+                        </div>
+                        <hr>
+                    </div>
+                `;
+            });
+            if (feedback.length > 5) {
+                console.warn("More than 5 feedback entries:", feedback.length);
+                container.innerHTML += `<p>Note: Only the first 5 responses are displayed (found ${feedback.length} total).</p>`;
+            }
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,242 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f4f4f4;
+    color: #333;
+}
+.resume-builder {
+    width: 230mm; /* A4 width */
+    min-height: 297mm; /* A4 height */
+    margin: 2rem auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+.resume-template {
+    width: 210mm; /* A4 width */
+    min-height: 297mm; /* A4 height */
+    background: white;
+    padding: 20px;
+    margin: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.resume-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.resume-header h2 {
+    margin: 0;
+    font-size: 24px;
+}
+.resume-section {
+    margin-bottom: 15px;
+}
+.resume-section h3 {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+}
+.resume-section p {
+    margin: 5px 0;
+}
+input, textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-top: 5px;
+}
+button {
+    background: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+/* Resume layout styles */
+/* Layout 1: Classic Professional */
+.layout1 {
+    background: #e3f2fd;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    text-align: left;
+    padding: 20px;
+    width: 210mm;
+    min-height: 297mm;
+}
+
+.layout1 .resume-header {
+    background: #1976d2;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    border-radius: 5px;
+}
+.layout1 .resume-section {
+    background: white;
+    padding: 15px;
+    border-radius: 5px;
+    margin: 10px 0;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+}
+.layout3 .resume-section {
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 8px;
+    background: white;
+    margin: 10px 0;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Layout 4: Tech & Monospace (Dark Theme) */
+    .layout4 {
+    background: #212121;
+    font-family: "Courier New", monospace;
+    color: #ddd;
+    padding: 20px;
+    }
+    
+    .layout4 .resume-header {
+    background: #444;
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    text-align: center;
+    }
+    
+    .layout4 .resume-section {
+    text-align: left;
+    background: #333;
+    padding: 15px;
+    border-radius: 5px;
+    margin: 10px 0;
+    box-shadow: 2px 2px 8px rgba(255, 255, 255, 0.1);
+    }
+    
+    /* Layout 5: Green Theme with Two Columns */
+    .layout5 {
+    background: #dff0d8;
+    font-family: "Trebuchet MS", sans-serif;
+    color: #000;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 20px;
+    }
+    
+    .layout5 .resume-header {
+    width: 100%;
+    text-align: center;
+    background: #388e3c;
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    }
+    
+    .layout5 .resume-section {
+    flex: 1;
+    padding: 15px;
+    border-radius: 5px;
+    background: white;
+    margin: 10px 0;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    }
+/* The same A4 size settings applied to other layouts */
+.layout2, .layout3, .layout4, .layout5 {
+    width: 210mm;
+    min-height: 297mm;
+}
+#chatbot-icon {
+    width: 60px;
+    height: 60px;
+    background: url('/static/chatbot-icon.png') no-repeat center;
+    background-size: cover;
+    cursor: pointer;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+#chatbot-window {
+    position: fixed;
+    bottom: 10px;
+    right: 20px;
+    width: 300px;
+    background: #f8f8f8;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    display: none;
+}
+
+#chatbot-header {
+    background: #007bff;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+}
+
+#chatbot-messages {
+    height: 250px;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+#chatbot-input {
+    display: flex;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+}
+
+#user-input {
+    flex: 1;
+    padding: 5px;
+}
+
+#send-btn {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+.resume-section {
+    margin-bottom: 20px;
+}
+
+.resume-section h3 {
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.resume-section ul {
+    padding-left: 20px;
+}
+
+.resume-section li {
+    margin-bottom: 10px;
+}
+/* Home button style */
+#homeButton {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#homeButton:hover {
+    background-color: #0056b3;
+}
+
+
